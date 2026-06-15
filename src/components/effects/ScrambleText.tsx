@@ -21,6 +21,7 @@ export default function ScrambleText({
 
     const timeout = setTimeout(() => {
       function animate() {
+        if (!el) return;
         let output = '';
         for (let i = 0; i < text.length; i++) {
           if (text[i] === ' ') {
