@@ -37,8 +37,10 @@ export default function MagneticField() {
     }
 
     function resize() {
-      W = canvas.width = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
+      const c = canvasRef.current;
+      if (!c) return;
+      W = c.width = c.offsetWidth;
+      H = c.height = c.offsetHeight;
       buildPoints();
     }
 
