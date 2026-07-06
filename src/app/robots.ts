@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://ardatuncay.com/sitemap.xml',
+    sitemap: 'https://arda-tuncay.vercel.app/sitemap.xml',
   }
 }

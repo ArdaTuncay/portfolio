@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Arda Tuncay | Yapay Zeka & Otonom Sistemler",
     description: "Bilgisayar Mühendisliği öğrencisi. Otonom araç ve görüntü işleme projelerimi inceleyin.",
-    url: "https://ardatuncay.com", // Bu alan adını alırsanız burası eşleşecek
+    url: "https://arda-tuncay.vercel.app",
     siteName: "Arda Tuncay Portfolyo",
     type: "website",
   },
