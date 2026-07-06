@@ -24,18 +24,18 @@ const EXPERIENCES: ExperienceItem[] = [
     tech: ['Python', 'YOLOv8', 'OpenCV', 'FastAPI'],
   },
   {
-    period: '2022 — DEVAM',
+    period: '2023 — DEVAM',
     title: 'Bilgisayar Mühendisliği Öğrencisi',
     org: 'Selçuk Üniversitesi',
     location: 'Konya',
     bullets: ['Otonom sistemler ve yapay zeka odaklı araştırma'],
   },
   {
-    period: '2023 — 2024',
+    period: '25 - DEVAM EDİYOR',
     title: 'TEKNOFEST Yarışmacısı',
-    org: 'Havacılıkta Yapay Zeka · Tarım Teknolojileri',
+    org: 'Havacılıkta Yapay Zeka · Tarım Teknolojileri · İnsansız Kara Aracı',
     location: 'Türkiye',
-    bullets: ['İki ayrı kategoride proje geliştirme'],
+    bullets: ['Farklı kategorilerde proje geliştirme'],
   },
 ];
 
@@ -75,7 +75,7 @@ export default function Experience() {
           marginBottom: '8px',
         }}
       >
-        // DENEYİM
+        DENEYİM
       </motion.p>
       <motion.h2
         variants={itemVariants}

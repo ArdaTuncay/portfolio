@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, MouseEvent } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 interface Project {
   title: string;
@@ -18,7 +18,7 @@ const PROJECTS: Project[] = [
     description:
       'ROS 2 tabanlı otonom kara aracı. Gerçek zamanlı engellerden kaçınma, yol planlama ve Gazebo simülasyon ortamı.',
     tech: ['ROS 2', 'Gazebo', 'Jetson NX', 'OpenCV'],
-    status: 'devam',
+    status: 'tamamlandı',
     accentColor: '#4a9eba',
   },
   {
@@ -45,7 +45,7 @@ const PROJECTS: Project[] = [
     description:
       'LangChain ile oluşturulmuş üniversite bilgi asistanı. Doğal dil işleme ve konuşma tanıma entegrasyonu.',
     tech: ['LangChain', 'FastAPI', 'Speech', 'Python'],
-    status: 'devam',
+    status: 'tamamlandı',
     accentColor: '#6b5fa5',
   },
   {
@@ -56,6 +56,15 @@ const PROJECTS: Project[] = [
     tech: ['YOLOv8', 'Raspberry Pi', 'OpenCV'],
     status: 'tamamlandı',
     accentColor: '#3d7a52',
+  },
+  {
+    title: 'Sesli Sohbet Uygulaması',
+    category: 'WEB',
+    description:
+      'Discord benzeri gerçek zamanlı sesli sohbet ve iletişim uygulaması.',
+    tech: ['React', 'WebRTC', 'Node.js', 'Socket.io'],
+    status: 'devam',
+    accentColor: '#b46e3d',
   },
 ];
 
@@ -72,20 +81,50 @@ const itemVariants = {
 function ProjectCard({ project }: { project: Project }) {
   const [hovered, setHovered] = useState(false);
 
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
+    x.set(0);
+    y.set(0);
+  };
+
   return (
     <motion.div
       variants={itemVariants}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       style={{
         position: 'relative',
         background: 'var(--bg-card)',
         border: `1px solid ${hovered ? 'rgba(74, 158, 186, 0.2)' : 'var(--border)'}`,
         borderRadius: '6px',
         padding: '24px',
-        overflow: 'hidden',
-        transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
-        transition: 'border-color 0.4s ease, transform 0.4s ease',
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d',
+        transition: 'border-color 0.4s ease',
+        cursor: 'pointer',
       }}
     >
       {hovered && (
@@ -146,6 +185,7 @@ function ProjectCard({ project }: { project: Project }) {
           color: 'var(--text-secondary)',
           marginBottom: '10px',
           letterSpacing: '1px',
+          transform: 'translateZ(30px)',
         }}
       >
         {project.title}
@@ -201,7 +241,7 @@ export default function Projects() {
           marginBottom: '8px',
         }}
       >
-        // PROJELER
+        PROJELER
       </motion.p>
       <motion.h2
         variants={itemVariants}

@@ -1,25 +1,7 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { GitBranch, ExternalLink, Mail, MapPin, GraduationCap } from 'lucide-react';
-
-interface TerminalLine {
-  type: 'prompt' | 'output';
-  text: string;
-}
-
-const TERMINAL_SEQUENCE: Array<{ delay: number; line: TerminalLine }> = [
-  { delay: 0, line: { type: 'prompt', text: '$ whoami' } },
-  { delay: 400, line: { type: 'output', text: 'Arda Tuncay — Bilgisayar Mühendisi' } },
-  { delay: 900, line: { type: 'prompt', text: '$ cat about.txt' } },
-  { delay: 1300, line: { type: 'output', text: '> Selçuk Üniversitesi, 3. Sınıf' } },
-  { delay: 1500, line: { type: 'output', text: '> Konum: Konya, Türkiye' } },
-  { delay: 1700, line: { type: 'output', text: '> E-posta: ardatuncay05@gmail.com' } },
-  { delay: 2200, line: { type: 'prompt', text: '$ cat focus.txt' } },
-  { delay: 2600, line: { type: 'output', text: '> Yapay Zeka & Görüntü İşleme' } },
-  { delay: 2800, line: { type: 'output', text: '> Otonom Sistemler & Robotik' } },
-  { delay: 3000, line: { type: 'output', text: '> Savunma Sanayi Teknolojileri' } },
-];
 
 const containerVariants = {
   hidden: {},
@@ -45,26 +27,6 @@ const linkStyle = {
 export default function About() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
-  const [lines, setLines] = useState<TerminalLine[]>([]);
-  const [cursorOn, setCursorOn] = useState(true);
-  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
-
-  useEffect(() => {
-    if (!isInView) return;
-    TERMINAL_SEQUENCE.forEach(({ delay, line }) => {
-      const t = setTimeout(
-        () => setLines((prev) => [...prev, line]),
-        delay
-      );
-      timers.current.push(t);
-    });
-    return () => timers.current.forEach(clearTimeout);
-  }, [isInView]);
-
-  useEffect(() => {
-    const iv = setInterval(() => setCursorOn((v) => !v), 700);
-    return () => clearInterval(iv);
-  }, []);
 
   return (
     <motion.div
@@ -74,30 +36,18 @@ export default function About() {
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
     >
-      <motion.p
-        variants={itemVariants}
-        style={{
-          fontFamily: 'var(--font-mono), monospace',
-          fontSize: '9px',
-          color: 'var(--text-muted)',
-          letterSpacing: '4px',
-          marginBottom: '8px',
-        }}
-      >
-        // HAKKIMDA
-      </motion.p>
       <motion.h2
         variants={itemVariants}
         style={{
           fontFamily: 'var(--font-mono), monospace',
-          fontSize: '28px',
+          fontSize: 'clamp(24px, 4vw, 40px)',
           fontWeight: 700,
-          color: 'var(--text-secondary)',
+          color: 'var(--text-primary)',
           marginBottom: '48px',
           letterSpacing: '2px',
         }}
       >
-        Kimim
+        Hakkımda
       </motion.h2>
 
       <div
@@ -108,87 +58,22 @@ export default function About() {
           alignItems: 'start',
         }}
       >
-        {/* Terminal window */}
-        <motion.div variants={itemVariants}>
-          <div
-            style={{
-              border: '1px solid var(--border)',
-              borderRadius: '6px',
-              overflow: 'hidden',
-            }}
-          >
-            <div
-              style={{
-                background: '#0d0d0d',
-                padding: '10px 16px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                borderBottom: '1px solid var(--border)',
-              }}
-            >
-              <div
-                style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  background: '#2a1a1a',
-                }}
-              />
-              <div
-                style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  background: '#2a2a1a',
-                }}
-              />
-              <div
-                style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  background: '#1a2a1a',
-                }}
-              />
-            </div>
-
-            <div
-              style={{
-                background: '#0a0a0a',
-                padding: '20px 24px',
-                minHeight: '280px',
-                fontFamily: 'var(--font-mono), monospace',
-                fontSize: '12px',
-                lineHeight: 1.8,
-              }}
-            >
-              {lines.map((line, i) => (
-                <div
-                  key={i}
-                  style={{
-                    color:
-                      line.type === 'prompt'
-                        ? 'var(--text-secondary)'
-                        : 'var(--text-muted)',
-                  }}
-                >
-                  {line.text}
-                </div>
-              ))}
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: '8px',
-                  height: '14px',
-                  background: 'var(--text-secondary)',
-                  opacity: cursorOn ? 0.4 : 0,
-                  verticalAlign: 'middle',
-                  transition: 'opacity 0.15s',
-                }}
-              />
-            </div>
-          </div>
+        {/* Simple paragraph text instead of terminal */}
+        <motion.div variants={itemVariants} style={{
+            color: 'var(--text-muted)',
+            fontSize: '14px',
+            lineHeight: 1.8,
+            maxWidth: '600px'
+        }}>
+          <p style={{ marginBottom: '20px' }}>
+            Selçuk Üniversitesi Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Otonom sistemler, savunma sanayi teknolojileri ve yapay zeka odaklı çalışmalar gerçekleştiriyorum.
+          </p>
+          <p style={{ marginBottom: '20px' }}>
+            OpenCV ve YOLOv8 gibi derin öğrenme tabanlı görüntü işleme modellerinin yanında, ROS 2 tabanlı robotik sistemler ve otonom araç algoritmaları üzerinde aktif olarak projeler geliştiriyorum.
+          </p>
+          <p>
+            Gelecekteki en büyük hedefim yapay zekayı ve robotik sistemleri bir araya getirerek, karmaşık mühendislik problemlerine akılcı ve yenilikçi çözümler üretmektir.
+          </p>
         </motion.div>
 
         {/* Links */}
@@ -229,7 +114,7 @@ export default function About() {
           </a>
 
           <a
-            href="mailto:ardatuncay05@gmail.com"
+            href="mailto:ceng.ardatuncay@gmail.com"
             style={linkStyle}
             onMouseEnter={(e) =>
               (e.currentTarget.style.color = 'var(--text-secondary)')
@@ -239,7 +124,7 @@ export default function About() {
             }
           >
             <Mail size={16} />
-            ardatuncay05@gmail.com
+            ceng.ardatuncay@gmail.com
           </a>
 
           <div
@@ -261,7 +146,7 @@ export default function About() {
             }}
           >
             <MapPin size={16} />
-            Konya, Türkiye
+            Konya, Denizli Türkiye
           </div>
         </motion.div>
       </div>

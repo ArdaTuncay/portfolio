@@ -56,7 +56,7 @@ export default function Skills() {
           marginBottom: '8px',
         }}
       >
-        // BECERİLER
+        BECERİLER
       </motion.p>
       <motion.h2
         variants={itemVariants}

@@ -67,7 +67,7 @@ export default function Press() {
           marginBottom: '8px',
         }}
       >
-        // BASIN
+        BASIN
       </motion.p>
       <motion.h2
         variants={itemVariants}

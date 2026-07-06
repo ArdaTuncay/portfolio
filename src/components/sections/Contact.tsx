@@ -13,8 +13,8 @@ const itemVariants = {
 
 const LINKS = [
   {
-    label: 'ardatuncay05@gmail.com',
-    href: 'mailto:ardatuncay05@gmail.com',
+    label: 'ceng.ardatuncay@gmail.com',
+    href: 'mailto:ceng.ardatuncay@gmail.com',
     external: false,
   },
   {

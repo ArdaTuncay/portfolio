@@ -42,7 +42,7 @@ export default function Hero() {
               marginBottom: '20px',
             }}
           >
-            // BİLGİSAYAR MÜHENDİSİ
+            BİLGİSAYAR MÜHENDİSİ
           </motion.p>
 
           <h1
@@ -71,24 +71,10 @@ export default function Hero() {
               marginBottom: '20px',
             }}
           >
-            AI · Otonom Sistemler · Robotik
+            Otonom Sistemler, Görüntü İşleme ve Yapay Zeka
           </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            style={{
-              fontSize: '12px',
-              color: 'var(--text-muted)',
-              maxWidth: '380px',
-              lineHeight: 1.7,
-              marginBottom: '40px',
-            }}
-          >
-            Selçuk Üniversitesi Bilgisayar Mühendisliği 3. sınıf öğrencisi.
-            YOLOv8, ROS 2 ve LangChain ile çalışıyorum.
-          </motion.p>
+
 
           <motion.div
             initial={{ opacity: 0 }}
