@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     siteName: "Arda Tuncay Portfolyo",
     type: "website",
   },
+  verification: {
+    google: "-3NU3QQkhU77SDPqtyFAca-c2_1NMwagAj2va8GE9dU",
+  },
 };
 
 export default function RootLayout({
